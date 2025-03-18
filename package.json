@@ -1,0 +1,19 @@
+{
+  "name": "gpmcbot",
+  "version": "1.0.0",
+  "main": "src/index.mjs",
+  "scripts": {
+    "run": "node .",
+    "devrun": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "canvas": "^3.1.0",
+    "discord.js": "^14.18.0",
+    "mineflayer": "^4.25.0",
+    "prismarine-viewer": "^1.33.0"
+  }
+}
