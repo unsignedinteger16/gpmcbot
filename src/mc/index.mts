@@ -31,11 +31,12 @@ export function InitMc() {
             firstPerson: false,
         })
 
-        if(config.default.isTestingServer) {
+        if(!config.default.isTestingServer) {
 
-            bot.chat("/login " + config.default.mcPass)
+            console.log("/login " + config.default.mcPass);
+            bot.chat("/login " + config.default.mcPass);
 
-            bot.setQuickBarSlot(0)
+            bot.setQuickBarSlot(0);
             bot.activateItem();
         }
 
@@ -48,5 +49,20 @@ export function InitMc() {
         if(channel2 instanceof TextChannel) {
             await channel2.send("<" + un + "> " + msg);
         }
+    })
+
+    bot.once('whisper', async (user, msg) => {
+        if(msg == "!tpaccept") {
+            if(config.default.whitelisted.includes(user)) {
+                bot.chat("/tpaccept");
+            } else {
+                bot.whisper(user, "You dont have perrmisions to do that (nie masz uprawnien do zrobienia tego)");
+            }
+        }
+    })
+
+    bot.once("kicked", async (reason, isLogged) => {
+        console.log(`kicked for ${reason}`);
+        InitMc()
     })
 }

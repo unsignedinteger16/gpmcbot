@@ -8,6 +8,7 @@ import {
 import { Command } from "../command.mjs"
 import {bot} from "../../mc/index.mjs";
 import pkg from "mineflayer-pathfinder";
+import {dcClient} from "../index.mjs";
 const { goals } = pkg;
 
 export class GoToCorrdinateCommand implements Command {
@@ -26,7 +27,9 @@ export class GoToCorrdinateCommand implements Command {
 
             if(typeof(numberX) != "number" || typeof(numberZ) != "number") return;
 
-            bot.pathfinder.setGoal(new goals.GoalXZ(numberX, numberZ), false);
+            bot.pathfinder.goto(new goals.GoalNearXZ(numberX, numberZ, 500), async () => {
+                await interaction.reply("bot transfered!")
+            });
         }
     }
 }
