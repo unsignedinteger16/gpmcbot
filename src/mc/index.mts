@@ -5,6 +5,9 @@ import * as config from '../../config.json' with { type: "json" };
 import {dcClient} from "../dc/index.mjs";
 import {TextChannel} from "discord.js";
 
+import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
+
+
 export let bot: mineflayer.Bot;
 
 export function InitMc() {
@@ -15,10 +18,13 @@ export function InitMc() {
         version: "1.18.2",
     });
 
+    bot.loadPlugin(pathfinder);
+
     if(!bot) throw new Error("Bot is missing");
 
     bot.once("spawn", () => {
-        console.log("Spawn");
+        const defaultMove = new Movements(bot)
+        bot.pathfinder.setMovements(defaultMove)
 
         mf_viewer.mineflayer(bot, {
             port: 3007,
